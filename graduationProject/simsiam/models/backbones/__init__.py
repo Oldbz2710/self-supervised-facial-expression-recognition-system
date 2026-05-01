@@ -1,0 +1,1 @@
+from .resnet import ResNet18 as resnet18_cifar_variant2

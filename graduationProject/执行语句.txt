@@ -1,0 +1,9 @@
+CUDA_VISIBLE_DEVICES=0 python main.py  --log_dir ../logs/ -c configs/simsiam_cifar_quick.yaml --ckpt_dir ../cache/ --hide_progress
+linear_eval.py --data_dir ../Data/ --log_dir ../logs/ -c configs/simsiam_cifar_eval.yaml --ckpt_dir ~/.cache/ --hide_progress --eval_from ~/simsiam-cifar10-experiment-resnet18_cifar_variant1.pth
+
+moco：
+python main_lincls.py -a resnet50 --lr 0.03 --batch-size 128 --epochs 100 --pretrained moco_v2_800ep_pretrain.pth.tar  --data ../../dataset/FERPlus
+python main_lincls.py -a vit_base --lr 0.03 --batch-size 128 --epochs 100 --pretrained vit-b-300ep.pth.tar  --data ../../dataset/FERPlus
+python main_lincls.py -a vit_base --lr 1.5 --batch-size 128 --epochs 100  --pretrained vit-b-300ep.pth.tar  --data ../../dataset/FERPlus
+
+python eval_linear.py --arch vit_base --patch_size 8 --n_last_blocks 1 --avgpool_patchtokens true --data_path ../dataset/FERPlus --pretrained_weights dino_vitbase8_linearweights.pth
